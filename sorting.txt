@@ -1,0 +1,106 @@
+/*leetcode : three sum */
+
+
+vector<vector<int>> threeSum(vector<int>& nums) {
+      vector<vector<int>> ans;
+        int i,j,low,high,n=nums.size(),sum;
+        sort(nums.begin(),nums.end());
+        for(i=0;i<n-2;i++){
+            if(i==0 || i>0 && nums[i]!=nums[i-1]){
+                low=i+1; high=n-1; sum=0-nums[i];
+                while(low<high){
+                    if(nums[low]+nums[high]==sum){
+                        vector<int> temp(3,0);
+                        temp[0]=nums[i]; temp[1]=nums[low]; temp[2]=nums[high];
+                        ans.push_back(temp);
+                        while(low<high && nums[low]==nums[low+1]) low++;
+                        while(low<high && nums[high]==nums[high-1]) high--;
+                        low++; high--;
+                    }
+                    else if(nums[low]+nums[high]<sum) low++;
+                    else high--;
+                }
+            }
+        }
+        return ans;
+    }  
+
+
+    /* leetcode:  sorting color*/
+
+
+
+     void sortColors(vector<int>& nums) {
+        int n=nums.size();
+        int j=0;
+        int i=0;
+        int k=n-1;
+        
+        while(i<=k)
+        {
+            if(nums[i]==0)
+            {
+                swap(nums[i],nums[j]);
+                i++;
+                j++;
+                
+            }
+            else if(nums[i]==1)
+            {
+                i++;
+            }
+            else if(nums[i]==2)
+            {
+                swap(nums[i],nums[k]);
+                k--;
+                
+            }
+        }
+        
+    }
+
+
+    /*leetcode: 179. Largest Number*/
+
+
+      bool compare(string a,string b){
+    return a+b > b+a;
+}
+
+class Solution {
+public:
+  
+    string largestNumber(vector<int>& nums) {
+       vector<string> container;
+		
+        for(int i : nums)  container.push_back(to_string(i));
+        
+        sort(container.begin(),container.end(),compare);
+        
+        string result;
+        
+        for(int i=0;i<container.size();i++)  result+=container[i];
+        
+        return result[0]=='0'? "0" : result;
+                       
+        
+    }
+};
+
+
+/*leetcode: 215. Kth Largest Element in an Array*/
+
+
+ int findKthLargest(vector<int>& nums, int k) {
+        if(nums.size()==0)
+        return 0;
+        priority_queue<int>p;
+        for(int i=0;i<nums.size();i++){
+            p.push(nums[i]);
+        }
+        for(int i=0;i<k-1;i++){
+            p.pop();
+        }
+    
+        return p.top();
+    }
